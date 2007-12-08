@@ -1,52 +1,114 @@
-Lingua-JA-Kana
+NAME
+    Lingua::JA::Kana - Katakana-related utilities
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+VERSION
+    $Id: README,v 0.1 2007/12/08 11:04:08 dankogai Exp dankogai $
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+SYNOPSIS
+        use Lingua::JA::Kana;
 
+        my $hiragana = romaji2hiragana("ohayou");
+        my $katakana = romaji2katakana("ohasumi");
+        my $romaji   = kana2romaji($str);
 
-INSTALLATION
+DESCRIPTION
+    This module is a simple utility to convert katakana, hiragana, and
+    romaji at ease. This module makes use of utf8 semantics which is
+    introduced in Perl 5.8.0 and became stable enough in Perl 5.8.1 so you
+    need Perl 5.8.1 or better.
 
-To install this module, run the following commands:
+    Also note that strings in this module must be utf8-flagged. If they are
+    not, you can use Encode to do so.
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+      use Encode;
+      use Lingua::JA::Kana
+      my $romaji = kana2romaji(decode_utf8 $octet);
 
-SUPPORT AND DOCUMENTATION
+    See Encode, perluniintro, and perlunicode for details.
 
-After installing, you can find documentation for this module with the
-perldoc command.
+EXPORT
+    This module exports functions below:
 
-    perldoc Lingua::JA::Kana
+  hiragana2katakana
+    Converts all occurance of hiragana to katakana.
 
-You can also look for information at:
+      my $hiragana = hiragana2katakana($str);
 
-    RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Lingua-JA-Kana
+    hira2kata
+      its alias.
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Lingua-JA-Kana
+  katakana2hiragana
+    Converts all occurance of katakana to hiragana. "kata2hira" is an alias
+    thereof.
 
-    CPAN Ratings
-        http://cpanratings.perl.org/d/Lingua-JA-Kana
+      my $katakana = katakana2hiragana($str);
 
-    Search CPAN
-        http://search.cpan.org/dist/Lingua-JA-Kana
+    kata2hira
+      its alias.
 
+  romaji2katakana
+    Converts all occurance of romaji to katakana.
 
-COPYRIGHT AND LICENCE
+      my $romaji = romaji2hiragana($str);
 
-Copyright (C) 2007 Dan Kogai
+  romaji2hiragana
+    Converts all occurance of romaji to hiragana.
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+      my $katakana = romaji2hiragana($str);
+
+  kana2romaji
+    Converts all occurance of kana (both katakana and hiragana) to romaji.
+
+      my $romaji = kana2romaji($str);
+
+    INSTALLATION
+
+    To install this module, run the following commands:
+
+        perl Makefile.PL
+        make
+        make test
+        make install
+
+AUTHOR
+    Dan Kogai, "<dankogai at dan.co.jp>"
+
+BUGS
+    Please report any bugs or feature requests to "bug-lingua-ja-kana at
+    rt.cpan.org", or through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Lingua-JA-Kana>. I will
+    be notified, and then you'll automatically be notified of progress on
+    your bug as I make changes.
+
+SUPPORT
+    You can find documentation for this module with the perldoc command.
+
+        perldoc Lingua::JA::Kana
+
+    You can also look for information at:
+
+    *   RT: CPAN's request tracker
+
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=Lingua-JA-Kana>
+
+    *   AnnoCPAN: Annotated CPAN documentation
+
+        <http://annocpan.org/dist/Lingua-JA-Kana>
+
+    *   CPAN Ratings
+
+        <http://cpanratings.perl.org/d/Lingua-JA-Kana>
+
+    *   Search CPAN
+
+        <http://search.cpan.org/dist/Lingua-JA-Kana>
+
+ACKNOWLEDGEMENTS
+    Lingua::JA::Romaji
+
+COPYRIGHT & LICENSE
+    Copyright 2007 Dan Kogai, all rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
 

@@ -1,5 +1,8 @@
-Revision history for Lingua-JA-Kana
+# Revision history for Lingua-JA-Kana
+#
+# $Id: Changes,v 0.1 2007/12/08 11:04:08 dankogai Exp dankogai $
+#
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
-
+$Revision: 0.1 $ $Date: 2007/12/08 11:04:08 $
++ * 
+  First Release.

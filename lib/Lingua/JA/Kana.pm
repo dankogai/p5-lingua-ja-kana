@@ -5,13 +5,23 @@ use utf8;
 
 our $VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /(\d+)/g;
 
+require Exporter;
+use base qw/Exporter/;
+our @EXPORT = qw(
+ hira2kata hiragana2katakana
+ kata2hira katakana2hiragana
+ romaji2hiragana romaji2katakana
+ kana2romaji
+);
+
 our $USE_REGEXP_ASSEMBLE = do {
     eval 'require Regexp::Assemble';
     $@ ? 0 : 1;
 };
 
+
 our $Re_Vowels     = qr/[aeiou]/i;
-our $Re_Consonants = qr/[bcdfghijklmnpqrstvwxyz]/i;
+our $Re_Consonants = qr/[bcdfghijklpqrstvwxyz]/i; # note the absense of n and m
 
 our %Kata2Hepburn = qw(
   ア   a       イ   i       ウ   u       エ   e       オ   o
@@ -22,7 +32,7 @@ our %Kata2Hepburn = qw(
   サ   sa      シ   shi     ス   su      セ   se      ソ   so
   ザ   za      ジ   ji      ズ   zu      ゼ   ze      ゾ   zo
   シャ sha                  シュ shu                  ショ sho
-　ジャ ja                   ジュ ju                   ジョ jo
+  ジャ ja                   ジュ ju                   ジョ jo
   タ   ta      チ   chi     ツ   tsu     テ   te      ト   to
                ティ ti      トゥ tu
   ダ   da      ディ di      ドゥ du      デ   de      ド   do
@@ -44,7 +54,7 @@ our %Kata2Hepburn = qw(
   ワ   wa      ヰ   wi                   ヱ   we      ヲ   wo
   ウァ wa      ウィ wi                   ウェ we      ウォ wo
   ヴァ va      ヴィ vi      ヴ   vu      ヴェ ve      ヴォ vo
-  ン   nn
+  ン   n
 );
 
 our %Kana2Hepburn =
@@ -80,9 +90,9 @@ our %Romaji2Kata = qw(
   da   ダ      di   ディ    du   ドゥ    de   デ      do   ド
                dhi  ヂ      dhu  ヅ
   cha  チャ                 chu  チュ    che  チェ    cho  チョ
-  tya  チャ                 tyu  チュ    tye　チェ    tyo  チョ
+  tya  チャ                 tyu  チュ    tye  チェ    tyo  チョ
   dha  ヂャ                 dhu  ヂュ    dhe  ヂェ    dho  ヂョ
-  dya  ヂャ                 tyu  ヂュ    tye　ヂェ    tyo  ヂョ
+  dya  ヂャ                 tyu  ヂュ    tye  ヂェ    tyo  ヂョ
   na   ナ      ni   ニ      nu   ヌ      ne   ネ      no   ノ
   ha   ハ      hi   ヒ      fu   フ      he   ヘ      ho   ホ
                             hu   フ
@@ -100,7 +110,6 @@ our %Romaji2Kata = qw(
   wa   ワ                                             wo   ヲ
                wi   ウィ                 we   ウェ
   va   ヴァ    vi   ヴィ    vu   ヴ      ve   ヴェ    vo   ヴォ
-  nn   ン
 );
 
 our $Re_Romaji2Kata = do {
@@ -172,6 +181,7 @@ if ($0 eq __FILE__){
     warn $Re_Romaji2Kata;
     print romaji2katakana("Dan Kogai");
     print romaji2katakana("shimbashi");
+    print romaji2katakana("konnichiwa");
     print romaji2hiragana("Dan Kogai");
     print romaji2hiragana("shimbashi");
     warn $Re_Kana2Romaji;
@@ -185,43 +195,94 @@ __END__
 
 =head1 NAME
 
-Lingua::JA::Kana - The great new Lingua::JA::Kana!
+Lingua::JA::Kana - Katakana-related utilities
 
 =head1 VERSION
 
-$Id$
+$Id: Kana.pm,v 0.1 2007/12/08 11:04:08 dankogai Exp dankogai $
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use Lingua::JA::Kana;
 
-    my $foo = Lingua::JA::Kana->new();
-    ...
+    my $hiragana = romaji2hiragana("ohayou");
+    my $katakana = romaji2katakana("ohasumi");
+    my $romaji   = kana2romaji($str);
+
+=head1 DESCRIPTION
+
+This module is a simple utility to convert katakana, hiragana, and romaji
+at ease.  This module makes use of utf8 semantics which is introduced in
+Perl 5.8.0 and became stable enough in Perl 5.8.1 so you need Perl 5.8.1
+or better.
+
+Also note that strings in this module must be utf8-flagged.  If they are
+not, you can use L<Encode> to do so.
+
+  use Encode;
+  use Lingua::JA::Kana
+  my $romaji = kana2romaji(decode_utf8 $octet);
+
+See L<Encode>, L<perluniintro>, and L<perlunicode> for details.
 
 =head1 EXPORT
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+This module exports functions below:
 
-=head1 FUNCTIONS
+=head2 hiragana2katakana
 
-=head2 function1
+Converts all occurance of hiragana to katakana.
 
-=cut
+  my $hiragana = hiragana2katakana($str);
 
-sub function1 {
-}
+=over 2
 
-=head2 function2
+=item hira2kata
 
-=cut
+its alias.
 
-sub function2 {
-}
+=back
+
+=head2 katakana2hiragana
+
+Converts all occurance of katakana to hiragana. C<kata2hira> is an alias thereof.
+
+  my $katakana = katakana2hiragana($str);
+
+=over 2
+
+=item kata2hira
+
+its alias.
+
+=back
+
+=head2 romaji2katakana
+
+Converts all occurance of romaji to katakana.
+
+  my $romaji = romaji2hiragana($str);
+
+=head2 romaji2hiragana
+
+Converts all occurance of romaji to hiragana.
+
+  my $katakana = romaji2hiragana($str);
+
+=head2 kana2romaji
+
+Converts all occurance of kana (both katakana and hiragana) to romaji.
+
+  my $romaji = kana2romaji($str);
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
 
 =head1 AUTHOR
 
@@ -232,9 +293,6 @@ Dan Kogai, C<< <dankogai at dan.co.jp> >>
 Please report any bugs or feature requests to C<bug-lingua-ja-kana at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Lingua-JA-Kana>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
-
-
-
 
 =head1 SUPPORT
 
@@ -265,9 +323,9 @@ L<http://search.cpan.org/dist/Lingua-JA-Kana>
 
 =back
 
-
 =head1 ACKNOWLEDGEMENTS
 
+L<Lingua::JA::Romaji>
 
 =head1 COPYRIGHT & LICENSE
 
