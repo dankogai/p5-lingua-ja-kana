@@ -1,8 +1,12 @@
 # Revision history for Lingua-JA-Kana
 #
-# $Id: Changes,v 0.1 2007/12/08 11:09:30 dankogai Exp dankogai $
+# $Id: Changes,v 0.2 2007/12/08 11:18:53 dankogai Exp dankogai $
 #
+$Revision: 0.2 $ $Date: 2007/12/08 11:18:53 $
+! lib/Lingua/JA/Kana.pm
+  kana2romaji: 
+   fixed the subtle bug that leaves hiragana small tsu unconverted
 
-$Revision: 0.1 $ $Date: 2007/12/08 11:09:30 $
+0.01 2007/12/08 11:09:30
 + * 
   First Release.

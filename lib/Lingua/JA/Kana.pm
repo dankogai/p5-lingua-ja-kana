@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use utf8;
 
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.2 $ =~ /(\d+)/g;
 
 require Exporter;
 use base qw/Exporter/;
@@ -167,7 +167,7 @@ sub kana2romaji{
   # step 1;
   $str =~ s{ ($Re_Kana2Romaji) }{ $Kana2Romaji{$1} || $1 }msxge;
   # step 2; ッta -> tta
-  $str =~ s{ ッ($Re_Consonants) }{ "$1$1" }msxge;
+  $str =~ s{ [っッ]($Re_Consonants) }{ "$1$1" }msxge;
   # step 3; oー -> oo
   $str =~ s{ ($Re_Vowels)ー }{ "$1$1" }msxge;
   $str;
@@ -199,7 +199,7 @@ Lingua::JA::Kana - Kata-Romaji related utilities
 
 =head1 VERSION
 
-$Id: Kana.pm,v 0.1 2007/12/08 11:09:30 dankogai Exp dankogai $
+$Id: Kana.pm,v 0.2 2007/12/08 11:18:53 dankogai Exp dankogai $
 
 =head1 SYNOPSIS
 
