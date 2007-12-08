@@ -195,11 +195,11 @@ __END__
 
 =head1 NAME
 
-Lingua::JA::Kana - Katakana-related utilities
+Lingua::JA::Kana - Kata-Romaji related utilities
 
 =head1 VERSION
 
-$Id: Kana.pm,v 0.1 2007/12/08 11:04:08 dankogai Exp dankogai $
+$Id: Kana.pm,v 0.1 2007/12/08 11:09:30 dankogai Exp dankogai $
 
 =head1 SYNOPSIS
 
