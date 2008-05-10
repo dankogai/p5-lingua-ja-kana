@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use utf8;
 
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.2 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.3 $ =~ /(\d+)/g;
 
 require Exporter;
 use base qw/Exporter/;
@@ -21,7 +21,7 @@ our $USE_REGEXP_ASSEMBLE = do {
 
 
 our $Re_Vowels     = qr/[aeiou]/i;
-our $Re_Consonants = qr/[bcdfghijklpqrstvwxyz]/i; # note the absense of n and m
+our $Re_Consonants = qr/[bcdfghjklpqrstvwxyz]/i; # note the absense of n and m
 
 our %Kata2Hepburn = qw(
   ア   a       イ   i       ウ   u       エ   e       オ   o
@@ -199,7 +199,7 @@ Lingua::JA::Kana - Kata-Romaji related utilities
 
 =head1 VERSION
 
-$Id: Kana.pm,v 0.2 2007/12/08 11:18:53 dankogai Exp dankogai $
+$Id: Kana.pm,v 0.3 2008/05/10 17:38:00 dankogai Exp dankogai $
 
 =head1 SYNOPSIS
 

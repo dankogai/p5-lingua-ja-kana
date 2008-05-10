@@ -1,8 +1,13 @@
 # Revision history for Lingua-JA-Kana
 #
-# $Id: Changes,v 0.2 2007/12/08 11:18:53 dankogai Exp dankogai $
+# $Id: Changes,v 0.3 2008/05/10 17:38:00 dankogai Exp dankogai $
 #
-$Revision: 0.2 $ $Date: 2007/12/08 11:18:53 $
+$Revision: 0.3 $ $Date: 2008/05/10 17:38:00 $
+! lib/Lingua/JA/Kana.pm
+  Subject: "sakiika" is not converted into kana correctly.
+  http://rt.cpan.org/Ticket/Display.html?id=35763
+
+0.02 2007/12/08 11:18:53
 ! lib/Lingua/JA/Kana.pm
   kana2romaji: 
    fixed the subtle bug that leaves hiragana small tsu unconverted
