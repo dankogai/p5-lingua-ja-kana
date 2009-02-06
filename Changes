@@ -1,8 +1,15 @@
 # Revision history for Lingua-JA-Kana
 #
-# $Id: Changes,v 0.3 2008/05/10 17:38:00 dankogai Exp dankogai $
+# $Id: Changes,v 0.4 2009/02/06 01:16:08 dankogai Exp dankogai $
 #
-$Revision: 0.3 $ $Date: 2008/05/10 17:38:00 $
+$Revision: 0.4 $ $Date: 2009/02/06 01:16:08 $
+! lib/Lingua/JA/Kana.pm
+  Addressed:
+  http://rt.cpan.org/Ticket/Display.html?id=39590
+  http://rt.cpan.org/Ticket/Display.html?id=39227
+  http://rt.cpan.org/Ticket/Display.html?id=38122
+
+0.03 2008/05/10 17:38:00
 ! lib/Lingua/JA/Kana.pm
   Subject: "sakiika" is not converted into kana correctly.
   http://rt.cpan.org/Ticket/Display.html?id=35763

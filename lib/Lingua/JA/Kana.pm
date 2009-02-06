@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use utf8;
 
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.3 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.4 $ =~ /(\d+)/g;
 
 require Exporter;
 use base qw/Exporter/;
@@ -51,6 +51,7 @@ our %Kata2Hepburn = qw(
   ヤ   ya                   ユ   yu      イェ ye      ヨ   yo
   ャ   xya                  ュ   xyu                  ョ   xyo
   ラ   ra      リ   ri      ル   ru      レ   re      ロ   ro
+  リャ rya                  リュ ryu                  リョ ryo
   ワ   wa      ヰ   wi                   ヱ   we      ヲ   wo
   ウァ wa      ウィ wi                   ウェ we      ウォ wo
   ヴァ va      ヴィ vi      ヴ   vu      ヴェ ve      ヴォ vo
@@ -83,6 +84,7 @@ our %Romaji2Kata = qw(
   za   ザ      ji   ジ      zu   ズ      ze   ゼ      zo   ゾ
                zi   ジ
   sha  シャ                 shu  シュ                 sho  ショ
+  ja   ジャ                 ju   ジュ                 jo   ジョ
   sya  シャ                 syu  シュ                 syo  ショ
   ta   タ      chi  チ      tsu  ツ      te   テ      to   ト
                             xtu  ッ 
@@ -122,7 +124,7 @@ our $Re_Romaji2Kata = do {
         qr/$str/i;                    # and recompile with i
     }
     else {
-        my $str = join '|', keys %Romaji2Kata;
+        my $str = join '|', sort {length($b) <=> length($a)} keys %Romaji2Kata;
         qr/(?:$str)/i;
     }
 };
@@ -199,7 +201,7 @@ Lingua::JA::Kana - Kata-Romaji related utilities
 
 =head1 VERSION
 
-$Id: Kana.pm,v 0.3 2008/05/10 17:38:00 dankogai Exp dankogai $
+$Id: Kana.pm,v 0.4 2009/02/06 01:16:08 dankogai Exp dankogai $
 
 =head1 SYNOPSIS
 
