@@ -5,6 +5,7 @@ Makefile.PL
 README
 lib/Lingua/JA/Kana.pm
 t/00-load.t
+t/01-RT.t
 t/boilerplate.t
 t/pod-coverage.t
 t/pod.t

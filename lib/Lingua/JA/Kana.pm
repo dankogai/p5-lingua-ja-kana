@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use utf8;
 
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.4 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.5 $ =~ /(\d+)/g;
 
 require Exporter;
 use base qw/Exporter/;
@@ -12,6 +12,7 @@ our @EXPORT = qw(
  kata2hira katakana2hiragana
  romaji2hiragana romaji2katakana
  kana2romaji
+ hankaku2zenkaku zenkaku2hankaku
 );
 
 our $USE_REGEXP_ASSEMBLE = do {
@@ -108,6 +109,7 @@ our %Romaji2Kata = qw(
   ya   ヤ                   yu   ユ      ye   イェ    yo   ヨ
   xya  ャ                   xyu  ュ                   xyo  ョ
   ra   ラ      ri   リ      ru   ル      re   レ      ro   ロ
+  rya  リャ                 ryu  リュ                 ryo  リョ
   la   ラ      li   リ      lu   ル      le   レ      lo   ロ
   wa   ワ                                             wo   ヲ
                wi   ウィ                 we   ウェ
@@ -135,13 +137,13 @@ our $Re_Kana2Romaji = $Re_Kana2Hepburn;
 
 sub katakana2hiragana{
   my $str = shift;
-  $str =~ tr/ァ-ン/ぁ-ん/;
+  $str =~ tr/ァ-ンヴ/ぁ-んゔ/;
   $str;
 }
 
 sub hiragana2katakana{
   my $str = shift;
-  $str =~ tr/ぁ-ん/ァ-ン/;
+  $str =~ tr/ぁ-んゔ/ァ-ンヴ/;
   $str;
 }
 
@@ -190,7 +192,25 @@ if ($0 eq __FILE__){
     print kana2romaji("ダンコガイ");
     print kana2romaji("マイッタ");
     print kana2romaji("シンバシ");
+    print romaji2hiragana("ryoukai");   # RT#39590
+    print romaji2hiragana("virama");    # RT#45402
 }
+
+use Encode;
+use Encode::JP::H2Z;
+my $eucjp = Encode::find_encoding('eucjp');
+sub hankaku2zenkaku { 
+    my $str = $eucjp->encode(shift);
+    Encode::JP::H2Z::h2z(\$str);
+    $eucjp->decode($str);
+}
+
+sub zenkaku2hankaku { 
+    my $str = $eucjp->encode(shift);
+    Encode::JP::H2Z::z2h(\$str);
+    $eucjp->decode($str);
+}
+
 
 1; # End of Lingua::JA::Kana
 __END__
@@ -201,7 +221,7 @@ Lingua::JA::Kana - Kata-Romaji related utilities
 
 =head1 VERSION
 
-$Id: Kana.pm,v 0.4 2009/02/06 01:16:08 dankogai Exp dankogai $
+$Id: Kana.pm,v 0.5 2011/06/10 10:23:43 dankogai Exp dankogai $
 
 =head1 SYNOPSIS
 
@@ -277,7 +297,19 @@ Converts all occurance of kana (both katakana and hiragana) to romaji.
 
   my $romaji = kana2romaji($str);
 
-INSTALLATION
+=head2 hankaku2zenkaku
+
+Converts all occurance of hankaku to zenkaku.
+
+  my $romaji = hankaku2zenkaku($str);
+
+=head2 zenkaku2hankaku
+
+Converts all occurance  of zenkaku to hankaku.
+
+  my $romaji = zenkaku2hankaku($str);
+
+=head1 INSTALLATION
 
 To install this module, run the following commands:
 

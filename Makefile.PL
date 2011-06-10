@@ -1,5 +1,5 @@
 #
-# $Id: Makefile.PL,v 0.1 2007/12/08 11:09:30 dankogai Exp $
+# $Id: Makefile.PL,v 0.2 2011/06/10 10:23:43 dankogai Exp dankogai $
 #
 use 5.008001; # needs perl 5.8.1 or better
 use strict;
@@ -14,6 +14,7 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
+        'Encode'     => 2.00,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Lingua-JA-Kana-*' },
