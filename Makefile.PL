@@ -1,5 +1,5 @@
 #
-# $Id: Makefile.PL,v 0.2 2011/06/10 10:23:43 dankogai Exp dankogai $
+# $Id: Makefile.PL,v 0.2 2011/06/10 10:23:43 dankogai Exp $
 #
 use 5.008001; # needs perl 5.8.1 or better
 use strict;

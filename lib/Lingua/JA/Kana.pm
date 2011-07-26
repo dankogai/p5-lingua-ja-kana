@@ -3,8 +3,9 @@ use warnings;
 use strict;
 use utf8;
 
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.5 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.6 $ =~ /(\d+)/g;
 
+use re ();
 require Exporter;
 use base qw/Exporter/;
 our @EXPORT = qw(
@@ -121,8 +122,13 @@ our $Re_Romaji2Kata = do {
         my $ra = Regexp::Assemble->new();
         $ra->add($_) for keys %Romaji2Kata;
         my $str = $ra->re;
-        substr( $str, 0,  8, '' );    # remove '(?-xism:'
-        substr( $str, -1, 1, '' );    # and ')';
+        if ($] >= 5.009005) {
+            my ($pattern, $mod) = re::regexp_pattern($str);
+            $str = $pattern;
+        } else {
+            substr( $str, 0,  8, '' );    # remove '(?-xism:'
+            substr( $str, -1, 1, '' );    # and ')';
+        }
         qr/$str/i;                    # and recompile with i
     }
     else {
@@ -221,7 +227,7 @@ Lingua::JA::Kana - Kata-Romaji related utilities
 
 =head1 VERSION
 
-$Id: Kana.pm,v 0.5 2011/06/10 10:23:43 dankogai Exp dankogai $
+$Id: Kana.pm,v 0.6 2011/07/26 09:48:18 dankogai Exp $
 
 =head1 SYNOPSIS
 
