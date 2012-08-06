@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use utf8;
 
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.6 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.7 $ =~ /(\d+)/g;
 
 use re ();
 require Exporter;
@@ -31,6 +31,7 @@ our %Kata2Hepburn = qw(
   カ   ka      キ   ki      ク   ku      ケ   ke      コ   ko
   ガ   ga      ギ   gi      グ   gu      ゲ   ge      ゴ   go
   キャ kya                  キュ kyu                  キョ kyo
+  ギャ gya                  ギュ gyu                  ギョ gyo
   サ   sa      シ   shi     ス   su      セ   se      ソ   so
   ザ   za      ジ   ji      ズ   zu      ゼ   ze      ゾ   zo
   シャ sha                  シュ shu                  ショ sho
@@ -42,6 +43,7 @@ our %Kata2Hepburn = qw(
   チャ cha                  チュ chu     チェ che     チョ cho
   ヂャ dha                  ヂュ dhu     ヂェ dhe     ヂョ dho
   ナ   na      ニ   ni      ヌ   nu      ネ   ne      ノ   no
+  ニャ nya                  ニュ nyu                  ニョ nyo
   ハ   ha      ヒ   hi      フ   fu      ヘ   he      ホ   ho
   ヒャ hya                  ヒュ hyu                  ヒョ hyo
   バ   ba      ビ   bi      ブ   bu      ベ   be      ボ   bo
@@ -50,6 +52,7 @@ our %Kata2Hepburn = qw(
   ピャ pya                  ピュ pyu                  ピョ pyo
   ファ fa      フィ fi                   フェ fe      フォ fo
   マ   ma      ミ   mi      ム   mu      メ   me      モ   mo
+  ミャ mya                  ミュ myu                  ミョ myo
   ヤ   ya                   ユ   yu      イェ ye      ヨ   yo
   ャ   xya                  ュ   xyu                  ョ   xyo
   ラ   ra      リ   ri      ル   ru      レ   re      ロ   ro
@@ -81,6 +84,7 @@ our %Romaji2Kata = qw(
   ka   カ      ki   キ      ku   ク      ke   ケ      ko   コ
   ga   ガ      gi   ギ      gu   グ      ge   ゲ      go   ゴ
   kya  キャ                 kyu キュ                  kyo  キョ
+  gya  ギャ                 gyu ギュ                  gyo  ギョ 
   sa   サ      shi  シ      su   ス      se   セ      so   ソ
                si   シ
   za   ザ      ji   ジ      zu   ズ      ze   ゼ      zo   ゾ
@@ -98,6 +102,7 @@ our %Romaji2Kata = qw(
   dha  ヂャ                 dhu  ヂュ    dhe  ヂェ    dho  ヂョ
   dya  ヂャ                 tyu  ヂュ    tye  ヂェ    tyo  ヂョ
   na   ナ      ni   ニ      nu   ヌ      ne   ネ      no   ノ
+  nya ニャ                  nyu ニュ                  nyo ニョ 
   ha   ハ      hi   ヒ      fu   フ      he   ヘ      ho   ホ
                             hu   フ
   hya  ヒャ                 hyu  ヒュ                 hyo  ヒョ
@@ -107,6 +112,7 @@ our %Romaji2Kata = qw(
   pya  ピャ                 pyu  ピュ                 pyo  ピョ
   fa   ファ    fi   フィ                 fe   フェ    fo   フォ
   ma   マ      mi   ミ      mu   ム      me   メ      mo   モ
+  mya ミャ                  myu ミュ                  myo ミョ 
   ya   ヤ                   yu   ユ      ye   イェ    yo   ヨ
   xya  ャ                   xyu  ュ                   xyo  ョ
   ra   ラ      ri   リ      ru   ル      re   レ      ro   ロ
@@ -227,7 +233,7 @@ Lingua::JA::Kana - Kata-Romaji related utilities
 
 =head1 VERSION
 
-$Id: Kana.pm,v 0.6 2011/07/26 09:48:18 dankogai Exp $
+$Id: Kana.pm,v 0.7 2012/08/06 01:56:17 dankogai Exp $
 
 =head1 SYNOPSIS
 
